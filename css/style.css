@@ -253,16 +253,11 @@ section {
 }
 
 .gallery-item {
-  background: repeating-linear-gradient(135deg, #d7dfc9, #d7dfc9 20px, #e6ecd9 20px, #e6ecd9 40px);
   border-radius: 4px;
   height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--green-dark);
-  font-family: "Oswald", sans-serif;
-  text-align: center;
-  padding: 10px;
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 /* Testimonials */
