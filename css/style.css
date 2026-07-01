@@ -381,6 +381,10 @@ textarea {
   color: var(--accent);
 }
 
+.form-status.error {
+  color: #e88b7d;
+}
+
 /* Footer */
 footer {
   background: #142118;

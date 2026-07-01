@@ -37,11 +37,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const status = document.querySelector(".form-status");
 
   if (form && status) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      status.textContent = "Thanks! We'll call within one business day with your free estimate.";
-      status.classList.add("success");
-      form.reset();
+      const submitButton = form.querySelector("button[type='submit']");
+      submitButton.disabled = true;
+      status.classList.remove("success", "error");
+      status.textContent = "Sending...";
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          status.textContent = "Thanks! We'll call within one business day with your free estimate.";
+          status.classList.add("success");
+          form.reset();
+        } else {
+          status.textContent = "Something went wrong. Please call us instead at (555) 024-8391.";
+          status.classList.add("error");
+        }
+      } catch (err) {
+        status.textContent = "Something went wrong. Please call us instead at (555) 024-8391.";
+        status.classList.add("error");
+      } finally {
+        submitButton.disabled = false;
+      }
     });
   }
 });
